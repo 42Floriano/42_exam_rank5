@@ -30,10 +30,10 @@ int main() {
     std::cout << "b + 2 = " << b + 2 << "\n";
     std::cout << "2 + b = " << 2 + b << "\n\n";
 
-    // // Test des opérations composées
-    // std::cout << "Opérations composées :\n";
-    // a = vect2(1, 1);
-    // b = vect2(2, 2);
+    // Test des opérations composées
+    std::cout << "Opérations composées :\n";
+    a = vect2(1, 1);
+    b = vect2(2, 2);
     // a += b += c;
     // std::cout << "a += b += c : a = " << a << ", b = " << b << "\n";
     // std::cout << "b = " << b << "\n";

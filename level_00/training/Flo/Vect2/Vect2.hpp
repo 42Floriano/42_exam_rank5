@@ -6,7 +6,7 @@
 /*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:31:37 by falberti          #+#    #+#             */
-/*   Updated: 2025/06/25 15:23:18 by falberti         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:46:52 by falberti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ class vect2 {
         vect2(const vect2& other);
         vect2& operator=(const vect2& rhs);
         ~vect2();
+
+        vect2& operator+=(const vect2& vec);
+        vect2& operator-=(const vect2& vec);
+        vect2& operator*=(const vect2& vec);
+        vect2& operator!=(const vect2& vec);
+        
+        bool operator==(const vect2& vec) const;
+        bool operator!=(const vect2& vec) const;
+        
 
         int operator[](int pos) const;
         int& operator[](const int pos);
