@@ -34,45 +34,45 @@ int main() {
     std::cout << "Opérations composées :\n";
     a = vect2(1, 1);
     b = vect2(2, 2);
-    // a += b += c;
-    // std::cout << "a += b += c : a = " << a << ", b = " << b << "\n";
-    // std::cout << "b = " << b << "\n";
+    a += b += c;
+    std::cout << "a += b += c : a = " << a << ", b = " << b << "\n";
+    std::cout << "b = " << b << "\n";
     
-    // a = vect2(5, 5);
-    // std::cout << "a = " << a << "\n";
-    // a -= 2;
-    // std::cout << "a -= 2 : " << a << "\n";
-    // std::cout << "a = " << a << "\n";
-    // std::cout << "b = " << b << "\n";
-    // a -= b;
-    // std::cout << "a -= b : " << a << "\n\n";
+    a = vect2(5, 5);
+    std::cout << "a = " << a << "\n";
+    a -= 2;
+    std::cout << "a -= 2 : " << a << "\n";
+    std::cout << "a = " << a << "\n";
+    std::cout << "b = " << b << "\n";
+    a -= b;
+    std::cout << "a -= b : " << a << "\n\n";
 
-    // // Test des expressions complexes
-    // std::cout << "a = " << a << "\n";
-    // std::cout << "b = " << b << "\n";
-    // std::cout << "c = " << c << "\n";
-    // a = b * c + 2;
-    // std::cout << "a = b * c + 2 : " << a << "\n";
-    // a = 2 + b * c;
-    // std::cout << "a = 2 + b * c : " << a << "\n\n";
+    // Test des expressions complexes
+    std::cout << "a = " << a << "\n";
+    std::cout << "b = " << b << "\n";
+    std::cout << "c = " << c << "\n";
+    a = b * c + 2;
+    std::cout << "a = b * c + 2 : " << a << "\n";
+    a = 2 + b * c;
+    std::cout << "a = 2 + b * c : " << a << "\n\n";
 
-    // // Test des opérateurs d'incrémentation/décrémentation
-    // std::cout << "Incrémentation/Décrémentation :\n";
-    // a = vect2(1, 1);
-    // std::cout << "a = " << a << "\n";
-    // std::cout << "a++ = " << a++ << "\n";
-    // std::cout << "a = " << a << "\n";
-    // std::cout << "++a = " << ++a << "\n";
-    // std::cout << "a-- = " << a-- << "\n";
-    // std::cout << "a = " << a << "\n";
-    // std::cout << "--a = " << --a << "\n\n";
+    // Test des opérateurs d'incrémentation/décrémentation
+    std::cout << "Incrémentation/Décrémentation :\n";
+    a = vect2(1, 1);
+    std::cout << "a = " << a << "\n";
+    std::cout << "a++ = " << a++ << "\n";
+    std::cout << "a = " << a << "\n";
+    std::cout << "++a = " << ++a << "\n";
+    std::cout << "a-- = " << a-- << "\n";
+    std::cout << "a = " << a << "\n";
+    std::cout << "--a = " << --a << "\n\n";
 
-	// vect2 f(2,2);
-	// vect2 g(2,2);
-    // // Test des comparaisons
-    // std::cout << "Comparaisons :\n";
-    // std::cout << "b == c : " << (g == f) << "\n";
-    // std::cout << "b != c : " << (g != f) << "\n";
+	vect2 f(2,2);
+	vect2 g(2,1);
+    // Test des comparaisons
+    std::cout << "Comparaisons :\n";
+    std::cout << "b == c : " << (g == f) << "\n";
+    std::cout << "b != c : " << (g != f) << "\n";
 
     return 0;
 }

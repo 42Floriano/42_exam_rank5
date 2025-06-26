@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Vect2.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floriano <floriano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:37:52 by falberti          #+#    #+#             */
-/*   Updated: 2025/06/25 15:26:37 by falberti         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:04:52 by floriano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,71 @@ vect2 operator-(int num, const vect2& vec){
 vect2 operator*(int num, const vect2& vec){
     return vect2(vec[0] * num, vec[1] * num);
 }
+
+vect2& vect2::operator+=(const vect2& vec){
+    this->_x = this->_x + vec._x;
+    this->_y = this->_y + vec._y;
+    return *this;
+}
+vect2& vect2::operator+=(int num){
+    this->_x = this->_x + num;
+    this->_y = this->_y + num;
+    return *this;     
+}
+vect2& vect2::operator-=(const vect2& vec){
+    this->_x = this->_x - vec._x;
+    this->_y = this->_y - vec._y;
+    return *this;
+}
+vect2& vect2::operator-=(int num){
+    this->_x = this->_x - num;
+    this->_y = this->_y - num;
+    return *this;  
+}
+vect2& vect2::operator*=(const vect2& vec){
+    this->_x = this->_x * vec._x;
+    this->_y = this->_y * vec._y;
+    return *this;
+}
+vect2& vect2::operator*=(int num){
+    this->_x = this->_x * num;
+    this->_y = this->_y * num;
+    return *this;  
+}
+
+bool vect2::operator==(const vect2& vec) const{
+    return (this->_x == vec._x && this->_y == vec._y) ? true : false;
+}
+bool vect2::operator!=(const vect2& vec) const{
+    return (this->_x != vec._x || this->_y != vec._y) ? true : false;
+}
+
+vect2& vect2::operator++(){
+    this->_x++;
+    this->_y++;
+    return *this;
+}
+
+vect2 vect2::operator++(int){
+    vect2 temp(*this);
+    this->_x++;
+    this->_y++;
+    return temp;
+}
+
+vect2& vect2::operator--(){
+    this->_x--;
+    this->_y--;
+    return *this;
+}
+
+vect2 vect2::operator--(int){
+    vect2 temp(*this);
+    this->_x--;
+    this->_y--;
+    return temp;
+}
+
 
 
 

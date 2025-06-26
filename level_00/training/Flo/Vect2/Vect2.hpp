@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Vect2.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falberti <falberti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: floriano <floriano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:31:37 by falberti          #+#    #+#             */
-/*   Updated: 2025/06/25 15:46:52 by falberti         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:01:13 by floriano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,20 @@ class vect2 {
         ~vect2();
 
         vect2& operator+=(const vect2& vec);
+        vect2& operator+=(int num);
         vect2& operator-=(const vect2& vec);
+        vect2& operator-=(int num);
         vect2& operator*=(const vect2& vec);
-        vect2& operator!=(const vect2& vec);
+        vect2& operator*=(int num);
+
         
         bool operator==(const vect2& vec) const;
         bool operator!=(const vect2& vec) const;
+
+        vect2& operator++();
+        vect2& operator--();
+        vect2 operator++(int);
+        vect2 operator--(int);
         
 
         int operator[](int pos) const;
