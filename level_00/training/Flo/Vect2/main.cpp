@@ -1,4 +1,4 @@
-#include "Vect2.hpp"
+#include "Vect22.hpp"
 #include <iostream>
 #include <iomanip>
 
@@ -68,7 +68,7 @@ int main() {
     std::cout << "--a = " << --a << "\n\n";
 
 	vect2 f(2,2);
-	vect2 g(2,1);
+	vect2 g(2,2);
     // Test des comparaisons
     std::cout << "Comparaisons :\n";
     std::cout << "b == c : " << (g == f) << "\n";
