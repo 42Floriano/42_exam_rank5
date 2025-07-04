@@ -1,4 +1,4 @@
-#include "Vect22.hpp"
+#include "Vect222.hpp"
 #include <iostream>
 #include <iomanip>
 
@@ -19,6 +19,8 @@ int main() {
     // Test operator[]
     std::cout << "Accès aux composants :\n";
     std::cout << "b[0] = " << b[0] << ", b[1] = " << b[1] << "\n";
+    std::cout << "c[0] = " << c[0] << ", c[1] = " << c[1] << "\n\n";
+    //c[0] = 7;
     std::cout << "c[0] = " << c[0] << ", c[1] = " << c[1] << "\n\n";
 
     // Test des opérations avec scalaires
@@ -67,7 +69,7 @@ int main() {
     std::cout << "a = " << a << "\n";
     std::cout << "--a = " << --a << "\n\n";
 
-	vect2 f(2,2);
+	vect2 f(2,3);
 	vect2 g(2,2);
     // Test des comparaisons
     std::cout << "Comparaisons :\n";
