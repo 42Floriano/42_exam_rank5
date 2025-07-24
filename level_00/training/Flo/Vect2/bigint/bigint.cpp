@@ -3,7 +3,7 @@
 bigint::bigint() : _val("0"){}
 
 void bigint::removeZero(){
-    while (_val.size() > 1 && _val.back() == '0')
+    while (_val.size() > 1 && _val[_val.size() - 1] == '0')
         _val.erase(_val.size() - 1);
 }
 
@@ -15,7 +15,12 @@ bigint::bigint(unsigned int val){
 }
 
 bigint::bigint(const std::string& input){
-    if (input.empty() || !std::all_of(input.begin(), input.end(), ::isdigit))
+    bool isAllDigit = true;
+    for(std::string::const_iterator it = input.begin(); it < input.end(); it++){
+        if(!isdigit(*it))
+            isAllDigit = false;
+    }
+    if (input.empty() || isAllDigit == false)
         _val = "0";
     else {
         std::string rep = input;
@@ -153,26 +158,24 @@ bool bigint::operator>=(const bigint& bi) const{
     return false;
 }
 
-bigint& bigint::operator<<(size_t i){
+bigint bigint::operator<<(size_t i){
     std::string to_r = this->_val;
     std::reverse(to_r.begin(), to_r.end());
     for (size_t x = 0; x < i; x++)
         to_r.append("0");
-    std::reverse(to_r.begin(), to_r.end());
-    this->_val = to_r;
-    return *this;
+    bigint new_r(to_r);
+    return new_r;
 }
-bigint& bigint::operator>>(size_t i){
+bigint bigint::operator>>(size_t i){
     std::string to_r = this->_val;
     std::reverse(to_r.begin(), to_r.end());
     for (size_t x = 0; x < i; x++)
-        to_r.pop_back();
-    std::reverse(to_r.begin(), to_r.end());
-    this->_val = to_r;
-    return *this;
+        to_r.erase(to_r.size() - 1);
+    bigint new_r(to_r);
+    return new_r;
 }
 
-bigint& bigint::operator<<(const bigint& bi){
+bigint bigint::operator<<(const bigint& bi){
     size_t dix = 1;
     std::string to_r = this->_val;
     std::reverse(to_r.begin(), to_r.end());
@@ -184,25 +187,47 @@ bigint& bigint::operator<<(const bigint& bi){
         }
         dix *= 10;
     }
-     std::reverse(to_r.begin(), to_r.end());
-    this->_val = to_r;
-    return *this;
+   bigint new_r(to_r);
+   return new_r;
 }
 
-bigint& bigint::operator>>(const bigint& bi){
+bigint bigint::operator>>(const bigint& bi){
     size_t dix = 1;
     std::string to_r = this->_val;
     std::reverse(to_r.begin(), to_r.end());
     std::string s1 = bi._val;
     size_t len = s1.size();
-    for(size_t i = 0; i < len; i++){
-        for(size_t y = 0; y < ((size_t)(s1[i] - '0') * dix); y ++){
-            to_r.pop_back();
+    size_t lenmain = (size_t)to_r.size();
+    for(size_t i = 0; i < len ; i++){
+        if(to_r.empty())
+            break ;
+        for(size_t y = 0; y < ((size_t)(s1[i] - '0') * dix) && y < lenmain; y++){
+            to_r.erase(to_r.size() - 1);
+            if(to_r.empty())
+            break ;
         }
         dix *= 10;
     }
-     std::reverse(to_r.begin(), to_r.end());
-    this->_val = to_r;
+    if (to_r.empty())
+        to_r.push_back('0');
+   bigint new_r(to_r);
+   return new_r;
+}
+
+bigint& bigint::operator<<=(size_t i){
+    *this = *this << i;
+    return *this;
+}
+bigint& bigint::operator>>=(size_t i){
+    *this = *this >> i;
+    return *this;
+}
+bigint& bigint::operator<<=(const bigint& bi){
+    *this = *this << bi;
+    return *this;
+}
+bigint& bigint::operator>>=(const bigint& bi){
+    *this = *this >> bi;
     return *this;
 }
 

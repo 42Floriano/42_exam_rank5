@@ -30,10 +30,15 @@ class bigint {
         bool operator<=(const bigint& bi) const;
         bool operator>=(const bigint& bi) const;
 
-        bigint& operator<<(size_t i);
-        bigint& operator>>(size_t i);
-        bigint& operator<<(const bigint& bi);
-        bigint& operator>>(const bigint& bi);
+        bigint operator<<(size_t i);
+        bigint operator>>(size_t i);
+        bigint operator<<(const bigint& bi);
+        bigint operator>>(const bigint& bi);
+
+        bigint& operator<<=(size_t i);
+        bigint& operator>>=(size_t i);
+        bigint& operator<<=(const bigint& bi);
+        bigint& operator>>=(const bigint& bi);
 
         void print(std::ostream& os) const;
         
