@@ -63,6 +63,154 @@ bigint& bigint::operator+=(const bigint& bi){
     return *this;
 }
 
+bool bigint::operator==(const bigint& bi) const{
+    if (this->_val == bi._val)
+        return true;
+    return false;
+}
+bool bigint::operator!=(const bigint& bi) const{
+    if (this->_val != bi._val)
+        return true;
+    return false;
+}
+bool bigint::operator<(const bigint& bi) const{
+    if(_val.size() < bi._val.size())
+        return true;
+    else if (_val.size() > bi._val.size())
+        return false;
+    else{
+        for(size_t i = _val.size() - 1;  i > _val.size(); i--){
+            if (_val[i] < bi._val[i])
+                return true;
+            else if (_val[i] > bi._val[i])
+                return false;
+            else 
+                continue ;
+        }
+    }
+    return false;
+}
+
+bool bigint::operator>(const bigint& bi) const{
+    if(_val.size() > bi._val.size())
+        return true;
+    else if (_val.size() < bi._val.size())
+        return false;
+    else{
+        for(size_t i = _val.size() - 1;  i > _val.size(); i--){
+            if (_val[i] > bi._val[i])
+                return true;
+            else if (_val[i] < bi._val[i])
+                return false;
+            else 
+                continue ;
+        }
+    }
+    return false;
+}
+bool bigint::operator>=(const bigint& bi) const{
+    if(_val.size() > bi._val.size() || _val == bi._val)
+        return true;
+    else if (_val.size() < bi._val.size())
+        return false;
+    else{
+        for(size_t i = _val.size() - 1;  i > _val.size(); i--){
+            if (_val[i] > bi._val[i])
+                return true;
+            else if (_val[i] < bi._val[i])
+                return false;
+            else 
+                continue ;
+        }
+    }
+    return false;
+}
+bool bigint::operator<=(const bigint& bi) const{
+    if(_val.size() < bi._val.size() || _val == bi._val)
+        return true;
+    else if (_val.size() > bi._val.size())
+        return false;
+    else{
+        for(size_t i = _val.size() - 1;  i > _val.size(); i--){
+            if (_val[i] < bi._val[i])
+                return true;
+            else if (_val[i] > bi._val[i])
+                return false;
+            else 
+                continue ;
+        }
+    }
+    return false;
+}
+
+bigint bigint::operator<<(unsigned int y) const{
+    std::string res = _val;
+    std::reverse(res.begin(), res.end());
+    for (size_t i = 0 ; i < y; i++)
+        res.append("0");
+    bigint result(res);
+    return result;
+}
+
+bigint bigint::operator>>(unsigned int y) const{
+    std::string res = _val;
+    std::reverse(res.begin(), res.end());
+    for (size_t i = 0 ; i < y && !res.empty(); i++)
+        res.erase(res.size() - 1);
+    bigint result(res);
+    return result;   
+}
+
+bigint bigint::operator<<(const bigint& bi) const{
+    size_t dix = 1;
+    std::string res = _val;
+    std::reverse(res.begin(), res.end());
+    for (size_t i = 0 ; i < bi._val.size(); i++){
+        for (size_t y = 0; y < (size_t)((bi._val[i] - '0') * dix); y++)
+            res.append("0");
+        dix *= 10;
+    }
+    bigint result(res);
+    return result;
+}
+
+bigint bigint::operator>>(const bigint& bi) const{
+    size_t dix = 1;
+    std::string res = _val;
+    std::reverse(res.begin(), res.end());
+    for (size_t i = 0 ; i < bi._val.size(); i++){
+        if (res.empty())
+            break;
+        for (size_t y = 0; y < (size_t)((bi._val[i] - '0') * dix); y++){
+            res.erase(res.size() - 1);
+            if (res.empty())
+            break;
+        }
+        dix *= 10;
+    }
+    bigint result(res);
+    return result;
+}
+
+bigint& bigint::operator<<=(unsigned int y){
+    *this = *this << y;
+    return *this;
+}
+bigint& bigint::operator>>=(unsigned int y){
+    *this = *this >> y;
+    return *this;
+}
+
+bigint& bigint::operator<<=(const bigint& bi){
+    *this = *this << bi;
+    return *this;
+}
+bigint& bigint::operator>>=(const bigint& bi){
+    *this = *this >> bi;
+    return *this;
+}
+
+
 void bigint::print(std::ostream& os) const{
     std::string res = _val;
     std::reverse(res.begin(), res.end());

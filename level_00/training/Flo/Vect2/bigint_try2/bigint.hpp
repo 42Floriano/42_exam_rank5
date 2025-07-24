@@ -22,6 +22,23 @@ class bigint {
         bigint operator+(const bigint& bi);
         bigint& operator+=(const bigint& bi);
 
+        bool operator==(const bigint& bi) const;
+        bool operator!=(const bigint& bi) const;
+        bool operator<(const bigint& bi) const;
+        bool operator>(const bigint& bi) const;
+        bool operator>=(const bigint& bi) const;
+        bool operator<=(const bigint& bi) const;
+
+        bigint operator<<(unsigned int y) const;
+        bigint operator>>(unsigned int y) const;
+        bigint operator<<(const bigint& bi) const;
+        bigint operator>>(const bigint& bi) const;
+
+        bigint& operator<<=(unsigned int y);
+        bigint& operator>>=(unsigned int y);
+        bigint& operator<<=(const bigint& bi);
+        bigint& operator>>=(const bigint& bi);
+
         void print(std::ostream &os) const;
 };
 
