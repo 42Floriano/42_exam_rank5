@@ -15,7 +15,7 @@ char **new_tab(int width, int height)
 	{
 		tab[i] = calloc(sizeof(char), width);
 		for (int j = 0; j < width; j++)
-			tab[i][j] = ' ';
+			tab[i][j] = '.';
 	}
 	return tab;
 }
