@@ -40,7 +40,7 @@ Map* read_map(char *filename) {
         if (line[line_len - 1] == '\n') line[line_len - 1] = '\0';
         
         if (i == 0) map->width = strlen(line);
-        else if (strlen(line) != map->width) {
+        else if ((int)strlen(line) != map->width) {
             free(map);
             if (filename) fclose(file);
             return NULL;
