@@ -154,3 +154,36 @@ int main(int ac,  char **av){
     }
     return 0;
 }
+
+int min3(int a, int b, int c){
+    return (a < c) ? ((a < b) ? a )
+}
+
+typedef struct s_map{
+    int empty, obst, full;
+    int height, widht;
+    char **map;
+} t_map;
+
+void process_file(char **av){
+    t_map *map = read_map(av);
+    if (!map || validate(map)){
+        fprintf(stderr,"map error\n");
+        if (map) free(map);
+        return ;
+    }
+    solve_bsq(map);
+    print_map(map);
+    free_map(map);
+    return ;
+}
+
+int main(int ac, char**av{
+    if (ac == 1)
+        process_file(NULL);
+    else{
+        for(int i = 1; i < ac; i++)
+            process_file(av[i]);
+    }
+    return (0);
+}
