@@ -14,7 +14,7 @@ char **init_map(int height, int width){
     for(int y = 0; y < height; y++){
         map[y] = malloc(sizeof(char) * width);
         for (int x = 0; x < width; x++){
-            map[y][x] = ' ';
+            map[y][x] = '.';
         } 
     }
     return map;
@@ -36,23 +36,6 @@ void free_map(char **map, int height){
     free(map);
 }
 
-// int count_nachbar(char **map, int height, int width, int y, int x){
-//     int count = 0;
-//     for (int yi = -1; yi <= 1; yi++){
-//         for (int xi = -1; xi <= 1; xi++){
-//             if (yi == 0 && xi == 0)
-//                 continue ;
-//             int new_y = y + yi;
-//             int new_x = x + xi;
-//             if (new_x > 0 && new_x < width -1 && new_y > 0 && new_y < height -1){
-//                 if(map[new_y][new_x] == '0')
-//                     count++;
-//             }
-//         }
-//     }
-//     return count;
-// }
-
 int count_nachbar(char **map, int height, int width, int y, int x){
     int count = 0;
     for (int yi = -1; yi <= 1 ;yi++){
@@ -62,7 +45,8 @@ int count_nachbar(char **map, int height, int width, int y, int x){
             
             int new_y = y + yi;
             int new_x = x + xi;
-            if (new_x > 0 && new_x < width -1 && new_y > 0 && new_y < height -1){
+
+            if (new_x >= 0 && new_x < width && new_y >= 0 && new_y < height){
                 if (map[new_y][new_x] == '0')
                     count++;
             }
@@ -78,12 +62,15 @@ void iter_map(char **map, int height, int width){
     for(int y = 0; y < height; y++){
         for (int x = 0; x < width; x++){
             int count = count_nachbar(map, height, width, y, x);
+            printf("(%d,%d) = %d\n", x, y , count);
             if(map[y][x] == '0'){
                 if (count == 2 || count == 3)
                     new_map[y][x] = '0';
             } else {
-                if (count == 3)
-                    new_map[y][x] =  '0';
+                if (count == 3){
+                    new_map[y][x] = '0';
+                    printf("writting x:%i, y:%i\n", x, y);
+                }
             }
         }
     }
@@ -134,6 +121,8 @@ int main(int ac, char **av){
                 pen.is_down = !pen.is_down;
                 break ;   
         }
+        if(command == '\n')
+            break ;
     }
     print_map(map, height, width);
     for (int i = 0; i < iter; i++)
