@@ -12,7 +12,7 @@ char **init_map(int height, int width){
     for (int y = 0; y < height; y++){
         map[y] = malloc(sizeof(char) * width);
         for (int x = 0; x < width; x++)
-            map[y][x] = '.';
+            map[y][x] = ' ';
     }
     return map;
 }
@@ -41,7 +41,7 @@ int count_nbh(char **map, int height, int width, int y, int x){
             int new_y = y + yi;
             int new_x = x + xi;
 
-            if (new_x >= 0 && new_x <= width && new_y >= 0 && new_y <= height){
+            if (new_x >= 0 && new_x < width && new_y >= 0 && new_y < height){
                 if(map[new_y][new_x] == 'O')
                     count++;
             }
@@ -86,7 +86,7 @@ int main(int ac, char **av){
     char **map = init_map(height, width);
     while(read(0, &command, 1) > 0){
         if (pen.is_down)
-            map[pen.x][pen.y] = 'O';
+            map[pen.y][pen.x] = 'O';
         switch(command){
             case 'w':
                 if(pen.y > 0) 
