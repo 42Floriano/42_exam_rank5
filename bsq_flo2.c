@@ -3,6 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 
+int ft_strlen(char *str){
+    int count = 0;
+        while(str[count])
+            count++;
+    return count;
+}
+
 typedef struct s_map{
     int height, width;
     char empty, obst, full;
@@ -27,8 +34,19 @@ int validate_map(t_map *map){
 }
 
 t_map *read_map(char *filename){
-    FILE *file = filename ? fopen(filename, "r") : stdin;
+    char *line = NULL;
+
+    if(!filename){
+        size_t len = 0;
+        getline(&line, &len, stdin);
+        int line_len = ft_strlen(line);
+        if(line[line_len - 1] == '\n') line[line_len - 1] = '\0';
+    }
+
+    //printf("test: %s\n", line);
+    FILE *file = filename ? fopen(filename, "r") : fopen(line, "r");
     if (!file) return NULL;
+    free(line);
 
     t_map *map = malloc(sizeof(t_map));
     if (fscanf(file, "%d %c %c %c\n", &map->height, &map->empty, &map->obst, &map->full) != 4){
@@ -49,13 +67,13 @@ t_map *read_map(char *filename){
             return NULL;
         }
 
-        int line_len = strlen(line);
+        int line_len = ft_strlen(line);
 
         if(line[line_len - 1] == '\n') line[line_len - 1] = '\0';
 
         if (i == 0)
-            map->width = strlen(line);
-        else if((int)strlen(line) != map->width){
+            map->width = ft_strlen(line);
+        else if(ft_strlen(line) != map->width){
             free(map);
             if(filename) fclose(file);
             return NULL;
@@ -95,8 +113,8 @@ void solve_bsq(t_map *map){
     }
 
     //file the square
-    int start_x = best_x + max_size + 1;
-    int start_y = best_y + max_size + 1;
+    int start_x = best_x - max_size + 1;
+    int start_y = best_y - max_size + 1;
 
     for (int i = start_y; i< start_y + max_size; i++){
         for (int y = start_x; y < start_x + max_size; y++){
@@ -112,7 +130,7 @@ void solve_bsq(t_map *map){
 
 void print_map(t_map *map){
     for (int i = 0; i < map->height; i++)
-        fprintf(stdout, "%s", map->map[i]);
+        fprintf(stdout, "%s\n", map->map[i]);
 }
 
 void free_map(t_map *map){
