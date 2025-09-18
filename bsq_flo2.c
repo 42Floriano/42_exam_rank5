@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef struct s_map{
     int height, width;
@@ -30,7 +31,7 @@ t_map *read_map(char *filename){
     if (!file) return NULL;
 
     t_map *map = malloc(sizeof(t_map));
-    if (fscanf(file, "%d %c %c %c", &map->height, &map->empty, &map->obst, &map->full) != 4){
+    if (fscanf(file, "%d %c %c %c\n", &map->height, &map->empty, &map->obst, &map->full) != 4){
         free(map);
         if (filename) fclose(file);
         return NULL;
@@ -50,15 +51,17 @@ t_map *read_map(char *filename){
 
         int line_len = strlen(line);
 
-        if(line[line_len - 1] == '\n') line[line_len - 1] == '\0';
+        if(line[line_len - 1] == '\n') line[line_len - 1] = '\0';
 
         if (i == 0)
-            map->width = line_len;
+            map->width = strlen(line);
         else if((int)strlen(line) != map->width){
             free(map);
             if(filename) fclose(file);
             return NULL;
         }
+
+        map->map[i] = line;
     }
 
     if (filename) fclose(file);
@@ -66,13 +69,50 @@ t_map *read_map(char *filename){
 }
 
 void solve_bsq(t_map *map){
-    
+    int **dp = malloc(sizeof(int*) * map->height);
+    for (int i = 0; i < map->height; i++){
+        dp[i] = malloc(sizeof(int) * map->width);
+    }
 
+    int max_size = 0, best_y = 0, best_x = 0;
+
+    for (int y = 0; y < map->height; y++) {
+        for (int x = 0; x < map->width; x++) {
+            if(map->map[y][x] == map->obst){
+                dp[y][x] = 0;
+            } else if(y == 0 || x == 0){
+                dp[y][x] = 1;
+            } else {
+                dp[y][x] = min3(dp[y-1][x], dp[y][x-1], dp[y-1][x-1]) + 1;
+            }
+
+            if(dp[y][x] > max_size){
+                max_size = dp[y][x];
+                best_y = y;
+                best_x = x;
+            }
+        }
+    }
+
+    //file the square
+    int start_x = best_x + max_size + 1;
+    int start_y = best_y + max_size + 1;
+
+    for (int i = start_y; i< start_y + max_size; i++){
+        for (int y = start_x; y < start_x + max_size; y++){
+            map->map[i][y] = map->full;
+        }
+    }
+
+    for(int i = 0; i < map->height; i++){
+        free(dp[i]);
+    }
+    free(dp);
 }
 
 void print_map(t_map *map){
     for (int i = 0; i < map->height; i++)
-        fprint(stdout, map->map[i]);
+        fprintf(stdout, "%s", map->map[i]);
 }
 
 void free_map(t_map *map){
@@ -84,7 +124,7 @@ void free_map(t_map *map){
     free(map);
 }
 
-void process(char **filename){
+void process(char *filename){
     t_map *map = read_map(filename);
     if(!map || !validate_map(map)){
         fprintf(stderr, "map error\n");
@@ -97,7 +137,7 @@ void process(char **filename){
 }
 
 
-int main(int ac, char *av){
+int main(int ac, char **av){
     if (ac == 1)
         process(NULL);
     else {
