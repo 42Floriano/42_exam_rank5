@@ -40,11 +40,17 @@ int count_nbh(char **map, int height, int width, int y, int x){
     int count = 0;
     
     for (int yi = -1; yi <= 1; yi++){
-        for(int xi = 1; xi <= 1; x++){
+        for(int xi = -1; xi <= 1; xi++){
             if(xi == 0 && yi == 0)
                 continue;
             
-                if()
+            int new_y = y + yi;
+            int new_x = x + xi;
+
+            if (new_y >= 0 && new_y < height && new_x >= 0 && new_x < width){
+                if(map[new_y][new_x] == 'O')
+                    count++;
+            }
         }
     }
     return count;
@@ -57,12 +63,13 @@ void iter_map(char **map, int height, int width){
     for (int y = 0; y < height; y++){
         for(int x = 0; x < width; x++){
             int count = count_nbh(map, height, width, y, x);
-            if(map[y][x] == '0'){
-                if (count == 2 || count || 3)
-                    new_map[y][x] = '0';
+            printf("At y: %d, x:%d, res:%c count:%d\n", y, x, map[y][x], count);
+            if(map[y][x] == 'O'){
+                if (count == 2 || count == 3)
+                    new_map[y][x] = 'O';
             } else {
                 if (count == 3)
-                    new_map[y][x] = '0';
+                    new_map[y][x] = 'O';
             }
         }
     }
@@ -117,9 +124,10 @@ int main(int ac, char ** av){
         if(command == '\n') break ;
     }
     print_map(map, height, width);
-    // for(int i = 0; i < iter; i++)
-    //     iter_map(map, height, width);
-    // free_map(map, height);
+    for(int i = 0; i < iter; i++)
+        iter_map(map, height, width);
+    print_map(map, height, width);
+    free_map(map, height);
     return 0;
 }
 
