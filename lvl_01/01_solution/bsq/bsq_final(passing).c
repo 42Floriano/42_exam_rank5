@@ -37,7 +37,6 @@ void free_map(t_map *map){
     if(map == NULL) return;
     if(map->map == NULL) return;
     for(int y = 0; y < map->height; y++){
-        //if(map->map[y] != NULL)
         free(map->map[y]);
     }
     free(map->map);
@@ -54,9 +53,7 @@ int validate_map(t_map *map){
     if (!map) return 1;
     if (map->height <= 0 || map->width <= 0) return 1;
     if (map->empty == map->full || map->empty == map->obst || map->obst == map->full) return 1;
-
-    printf("Test: %d %c %c %c\n", map->height, map->empty, map->obst, map->full);
-
+   // printf("Test: %d %c %c %c\n", map->height, map->empty, map->obst, map->full);
     for(int y = 0; y < map->height; y++){
         for(int x = 0; x < map->width; x++){
             char c = map->map[y][x];
@@ -64,7 +61,6 @@ int validate_map(t_map *map){
                 return 1;
         }
     }
-    //printf("Passing here\n");
     return 0;
 }
 
@@ -97,7 +93,6 @@ void solve_bsq(t_map *map){
 
     int start_y = best_y - max_size +1;
     int start_x = best_x - max_size +1;
-
     for (int y = start_y; y < start_y + max_size; y++){
          for (int x = start_x; x < start_x + max_size; x++){
             map->map[y][x] = map->full;
